@@ -72,6 +72,18 @@ app.post('/api/owners', (req, res) => {
 
 // PUT /api/owners/:id
 
+app.put('/api/owners/:id', function (req, res) {
+    // console.log(req.body)
+    for (var i = 0; i < owners.length; i++) {
+        if (owners[i].id == req.params.id) {
+            console.log(owners[i].id)
+            owners[i].name = req.body.name;
+            owners[i].pets = req.body.pets;
+            res.send(owners)
+        }
+    }
+})
+
 // DELETE /api/owners/:id
 
 // GET /api/owners/:id/pets
