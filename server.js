@@ -1,9 +1,9 @@
 var express = require('express');
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 
 var app = express();
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 var owners = [
     {
@@ -56,6 +56,19 @@ app.get('/api/owners/:id', (req, res) => {
 })
 
 // POST /api/owners
+app.post('/api/owners', (req, res) => {
+    console.log(req.body);
+
+    const newOwner = {
+        id: owners.length + 1,
+        name: req.body.name,
+        pets: req.body.pets
+    };
+
+    owners.push(newOwner);
+
+    res.send(owners);
+})
 
 // PUT /api/owners/:id
 
