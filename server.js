@@ -1,9 +1,9 @@
 var express = require('express');
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 
 var app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 var owners = [
     {
@@ -37,8 +37,23 @@ var owners = [
 
 
 // GET /api/owners
+app.get('/api/owners', function (req, res) {
+    console.log('request for api owners')
+    res.send(owners)
+});
 
 // GET /api/owners/:id
+app.get('/api/owners/:id', (req, res) => {
+    console.log(req.params.id)
+
+    const requestId = req.params.id
+
+    let ownersId = owners.filter(data => {
+        return data.id == requestId
+    })
+
+    res.send(ownersId[0])
+})
 
 // POST /api/owners
 
@@ -57,6 +72,6 @@ var owners = [
 // DELETE /api/owners/:id/pets/:petId
 
 
-app.listen(3000, function(){
-    console.log('Pets API is now listening on port 3000...');
+app.listen(5000, function(){
+    console.log('Pets API is now listening on port 5000...');
 })
