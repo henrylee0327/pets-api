@@ -85,10 +85,53 @@ app.put('/api/owners/:id', function (req, res) {
 })
 
 // DELETE /api/owners/:id
+app.delete('/api/owners/:id', (req, res) => {
+    const requestId = req.params.id;
+
+    let deleteOwner = owners.filter(data => {
+        return data.id == requestId
+    })[0]
+
+    const index = owners.indexOf(deleteOwner)
+
+    owners.splice(index, 1)
+
+    res.send("It is deleted")
+})
 
 // GET /api/owners/:id/pets
+app.get('/api/owners/:id/pets', (req, res) => {
+    console.log("id/pets request")
+    
+    // const requestId = req.params.id
+    
+    let ownerId = owners.filter(reqData => {
+        console.log(reqData.id)
+        return reqData.id == req.params.id
+    })
+    let selectPet = ownerId[0]
+
+    res.send(selectPet.pets)
+})
 
 // GET /api/owners/:id/pets/:petId
+app.get('/api/owners/:id/pets/:petId', (req, res) => {
+    console.log("id/pets request")
+    
+    // const requestId = req.params.id
+    
+    let ownerId = owners.filter(reqData => {
+        console.log(reqData.id)
+        return reqData.id == req.params.id
+    })
+    let selectPet = ownerId[0].pets
+
+    let finalPetId = selectPet.filter(reqData => {
+        console.log(reqData.id)
+        return reqData.id == req.params.petId
+    })
+    res.send(finalPetId)
+})
 
 // POST /api/owners/:id/pets
 
