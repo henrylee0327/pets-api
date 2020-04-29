@@ -134,6 +134,31 @@ app.get('/api/owners/:id/pets/:petId', (req, res) => {
 })
 
 // POST /api/owners/:id/pets
+app.post('/api/owners/:id/pets', (req, res) => {
+    
+    let whichOwner = owners.filter(currentOwner => {
+        console.log(owners.id)
+        return currentOwner.id == req.params.id
+    })
+
+    let foundOwner = whichOwner[0]
+    console.dir(req.body)
+    if (foundOwner === undefined) {
+
+        res.sendStatus(404)
+        return
+    } 
+
+    var newPet = {
+        id: foundOwner.pets.length + 1,
+        name: req.body.name,
+        type: req.body.type
+    }
+
+    foundOwner.pets.push(newPet)
+
+    res.send(newPet)
+})
 
 // PUT /api/owners/:id/pets/:petId
 
